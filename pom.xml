@@ -69,7 +69,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.yazidsystems.unidad4/com.yazidsystems.unidad4.HelloApplication</mainClass>
+                            <mainClass>com.yazidsystems.unidad4/com.yazidsystems.unidad4.MainApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

@@ -7,4 +7,6 @@ module com.yazidsystems.unidad4 {
 
     opens com.yazidsystems.unidad4 to javafx.fxml;
     exports com.yazidsystems.unidad4;
+    exports com.yazidsystems.unidad4.controller;
+    opens com.yazidsystems.unidad4.controller to javafx.fxml;
 }

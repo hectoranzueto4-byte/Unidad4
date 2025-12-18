@@ -1,60 +1,40 @@
 package com.yazidsystems.unidad4.funciones;
 
-import java.util.*;
-
-class Nodo<T> {
-    T dato;
-    List<Nodo<T>> vecinos;
-
-    public Nodo(T dato) {
-        this.dato = dato;
-        this.vecinos = new ArrayList<>();
+import java.util.Scanner;
+public class Grafos {
+    private int[][] matrizAdyacencia;
+    private int numVertices;
+    public Grafos(int numVertices) {
+        this.numVertices = numVertices;
+        this.matrizAdyacencia = new int[numVertices][numVertices];
     }
-
-    public void agregarVecino(Nodo<T> vecino) {
-        this.vecinos.add(vecino);
+    public void agregarArista(int origen, int destino, int peso) {
+        matrizAdyacencia[origen][destino] = peso;
+        // Para grafos no dirigidos, descomenta la siguiente línea:
+        // matrizAdyacencia[destino][origen] = peso;
     }
-}
-
-class Grafo<T> {
-    Map<T, Nodo<T>> nodos;
-
-    public Grafo() {
-        this.nodos = new HashMap<>();
-    }
-
-    public void agregarNodo(T dato) {
-        nodos.putIfAbsent(dato, new Nodo<>(dato));
-    }
-
-    public void agregarArista(T inicio, T fin) {
-        agregarNodo(inicio);
-        agregarNodo(fin);
-        nodos.get(inicio).agregarVecino(nodos.get(fin));
-        // Si es no dirigido, agregar también la arista inversa
-        // nodos.get(fin).agregarVecino(nodos.get(inicio));
-    }
-
-    // Método para BFS
-    public void bfs(T inicio) {
-        Queue<Nodo<T>> cola = new LinkedList<>();
-        Set<T> visitados = new HashSet<>();
-
-        Nodo<T> nodoInicio = nodos.get(inicio);
-        cola.add(nodoInicio);
-        visitados.add(inicio);
-
-        while (!cola.isEmpty()) {
-            Nodo<T> actual = cola.poll();
-            System.out.print(actual.dato + " ");
-
-            for (Nodo<T> vecino : actual.vecinos) {
-                if (!visitados.contains(vecino.dato)) {
-                    visitados.add(vecino.dato);
-                    cola.add(vecino);
-                }
+    public void mostrarMatriz() {
+        System.out.println("Matriz de Adyacencia:");
+        for (int i = 0; i < numVertices; i++) {
+            for (int j = 0; j < numVertices; j++) {
+                System.out.print(matrizAdyacencia[i][j] + " ");
             }
+            System.out.println();
         }
-        System.out.println();
+    }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el número de vértices: ");
+        int numVertices = scanner.nextInt();
+        Grafos grafo = new Grafos(numVertices);
+        System.out.println("Ingrese las aristas (origen, destino, peso). Ingrese -1 para terminar:");
+        while (true) {
+            int origen = scanner.nextInt();
+            if (origen == -1) break;
+            int destino = scanner.nextInt();
+            int peso = scanner.nextInt();
+            grafo.agregarArista(origen, destino, peso);
+        }
+        grafo.mostrarMatriz();
     }
 }
